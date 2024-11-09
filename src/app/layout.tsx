@@ -16,7 +16,7 @@ const bebasNeue = Bebas_Neue({
   variable: '--font-bebas-neue',
 })
 
-export default function RootLayout({
+export default function AppLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
