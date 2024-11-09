@@ -1,5 +1,7 @@
-import { Providers } from './providers'
 import { Inter, Bebas_Neue } from 'next/font/google'
+
+import { Providers } from './providers'
+import { PageAnimation } from '@/components'
 
 import { cn } from '@/lib/utils'
 
@@ -25,7 +27,9 @@ export default function AppLayout({
   return (
     <html lang="ru" suppressHydrationWarning>
       <body className={cn('antialiased', inter.variable, bebasNeue.variable)}>
-        <Providers>{children}</Providers>
+        <Providers>
+          <PageAnimation>{children}</PageAnimation>
+        </Providers>
       </body>
     </html>
   )
