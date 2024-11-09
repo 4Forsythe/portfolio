@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils'
 import { motion } from 'framer-motion'
 import { TypeAnimation } from 'react-type-animation'
 
-import { Button, Container } from '@/components'
+import { Button, Container, ThemeToggleButton } from '@/components'
 
 import { SHORT_STACK } from '@/constants'
 
@@ -76,7 +76,7 @@ export const Hero: React.FC = () => {
               transition={{ duration: 0.3, delay: 0.4 }}
             >
               <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-                <Button className="border border-border" variant="secondary">
+                <Button className="border border-border rounded-full" variant="secondary">
                   Скачать резюме
                 </Button>
               </motion.div>
@@ -91,6 +91,10 @@ export const Hero: React.FC = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.3, delay: 0.4 }}
           >
+            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+              <ThemeToggleButton />
+            </motion.div>
+
             <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
               <Link href={`https://github.com/${GITHUB_USERNAME}`} target="_blank">
                 <Button variant="outline" size="icon">

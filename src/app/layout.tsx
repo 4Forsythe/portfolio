@@ -1,3 +1,4 @@
+import { Providers } from './providers'
 import { Inter, Bebas_Neue } from 'next/font/google'
 
 import { cn } from '@/lib/utils'
@@ -22,8 +23,10 @@ export default function AppLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="ru">
-      <body className={cn('antialiased', inter.variable, bebasNeue.variable)}>{children}</body>
+    <html lang="ru" suppressHydrationWarning>
+      <body className={cn('antialiased', inter.variable, bebasNeue.variable)}>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   )
 }

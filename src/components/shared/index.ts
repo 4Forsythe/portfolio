@@ -1,3 +1,5 @@
 export { Container } from './container'
 export { Hero } from './hero'
 export { Navbar } from './navbar'
+export { ThemeProvider } from './theme-provider'
+export { ThemeToggleButton } from './theme-toggle-button'
