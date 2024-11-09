@@ -1,3 +1,5 @@
+import { Navbar } from '@/components'
+
 export default function MainLayout({
   children,
 }: Readonly<{
@@ -5,6 +7,7 @@ export default function MainLayout({
 }>) {
   return (
     <main className="min-h-screen flex">
+      <Navbar />
       <div className="flex flex-1 flex-col">{children}</div>
     </main>
   )
