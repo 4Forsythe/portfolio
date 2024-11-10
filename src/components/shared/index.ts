@@ -1,6 +1,10 @@
+export * from './library'
+
 export { Container } from './container'
 export { Hero } from './hero'
 export { Navbar } from './navbar'
 export { PageAnimation } from './page-animation'
+export { Repository } from './repository'
+export { Stats } from './stats'
 export { ThemeProvider } from './theme-provider'
 export { ThemeToggleButton } from './theme-toggle-button'
