@@ -17,7 +17,7 @@ export const PageAnimation: React.FC<React.PropsWithChildren> = ({ children }) =
             initial={{ top: '0%' }}
             animate={{ top: '100%' }}
             exit={{ top: ['100%', '0%'] }}
-            transition={{ duration: 0.25 }}
+            transition={{ duration: 0.3 }}
           />
         </div>
       </AnimatePresence>
@@ -27,7 +27,7 @@ export const PageAnimation: React.FC<React.PropsWithChildren> = ({ children }) =
           key={pathname}
           className="w-screen h-screen inset-0 z-10 bg-background pointer-events-none fixed overflow-hidden"
           initial={{ opacity: 1 }}
-          animate={{ opacity: 0, transition: { duration: 0.25, delay: 0.15, ease: 'easeInOut' } }}
+          animate={{ opacity: 0, transition: { duration: 0.4, delay: 0.2, ease: 'easeInOut' } }}
         />
         {children}
       </AnimatePresence>
