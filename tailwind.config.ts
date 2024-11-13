@@ -11,7 +11,7 @@ export default {
     extend: {
       fontFamily: {
         inter: 'var(--font-inter)',
-        'bebas-neue': 'var(--font-bebas-neue)',
+        raleway: 'var(--font-raleway)',
       },
       colors: {
         background: 'hsl(var(--background))',

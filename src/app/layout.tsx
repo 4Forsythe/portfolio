@@ -1,4 +1,4 @@
-import { Inter, Bebas_Neue } from 'next/font/google'
+import { Inter, Raleway } from 'next/font/google'
 
 import { Providers } from './providers'
 import { PageAnimation } from '@/components'
@@ -10,13 +10,15 @@ import './globals.css'
 const inter = Inter({
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
   style: ['normal', 'italic'],
+  subsets: ['latin', 'cyrillic'],
   variable: '--font-inter',
 })
 
-const bebasNeue = Bebas_Neue({
-  weight: ['400'],
-  style: ['normal'],
-  variable: '--font-bebas-neue',
+const raleway = Raleway({
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+  style: ['normal', 'italic'],
+  subsets: ['latin', 'cyrillic'],
+  variable: '--font-raleway',
 })
 
 export default function AppLayout({
@@ -26,7 +28,7 @@ export default function AppLayout({
 }>) {
   return (
     <html lang="ru" suppressHydrationWarning>
-      <body className={cn('antialiased', inter.variable, bebasNeue.variable)}>
+      <body className={cn('antialiased', inter.variable, raleway.variable)}>
         <Providers>
           <PageAnimation>{children}</PageAnimation>
         </Providers>
