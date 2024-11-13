@@ -1,5 +1,6 @@
 export * from './library'
 
+export { Contacts } from './contacts'
 export { Container } from './container'
 export { Hero } from './hero'
 export { Navbar } from './navbar'
