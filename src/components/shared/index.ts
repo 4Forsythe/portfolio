@@ -1,5 +1,6 @@
 export * from './library'
 
+export { ContactForm } from './contact-form'
 export { Contacts } from './contacts'
 export { Container } from './container'
 export { Hero } from './hero'
