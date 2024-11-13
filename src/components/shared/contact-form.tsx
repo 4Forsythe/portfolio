@@ -74,7 +74,7 @@ export const ContactForm: React.FC<IContactForm> = ({ className }) => {
 
   return (
     <Container className={cn('w-full flex flex-1 items-center justify-center', className)}>
-      {isSubmitting && <ProgressLoader />}
+      {isSubmitting && <ProgressLoader placeholder="Отправляем письмо..." />}
 
       {!isSubmitting && (
         <div className="w-full gap-20 py-20 flex items-center justify-center">
