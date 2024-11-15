@@ -1,5 +1,11 @@
 import { Hero } from '@/components'
 
-export default function Home() {
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Front-end React разработчик',
+}
+
+export default function HomePage() {
   return <Hero />
 }

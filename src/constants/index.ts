@@ -1,4 +1,5 @@
 export * from './languages-colors'
+export * from './metadata'
 export * from './routes'
 export * from './socials'
 export * from './stack'
