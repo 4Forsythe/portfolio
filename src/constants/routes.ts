@@ -1,4 +1,4 @@
-import { Airplay, UserPen, GitFork, QrCode, type LucideIcon } from 'lucide-react'
+import { TvMinimal, UserPen, Layers3, Link, type LucideIcon } from 'lucide-react'
 
 import { Route } from '@/config/routes.config'
 
@@ -11,7 +11,7 @@ interface IRouteConstant {
 export const ROUTES: IRouteConstant[] = [
   {
     name: 'Главная',
-    icon: Airplay,
+    icon: TvMinimal,
     href: Route.HOME,
   },
   {
@@ -20,13 +20,13 @@ export const ROUTES: IRouteConstant[] = [
     href: Route.RESUME,
   },
   {
-    name: 'Библиотека',
-    icon: GitFork,
+    name: 'Репозитории',
+    icon: Layers3,
     href: Route.LIBRARY,
   },
   {
     name: 'Связь',
-    icon: QrCode,
+    icon: Link,
     href: Route.CONTACTS,
   },
 ]
