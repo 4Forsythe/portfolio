@@ -18,8 +18,10 @@ export const Contacts: React.FC = () => {
     <Container className="max-w-[640px] w-full flex flex-1 items-center justify-center">
       <div className="py-20 flex flex-1 flex-col">
         <div className="mb-10 space-y-1.5 flex flex-col items-center">
-          <span className="text-primary uppercase dark:text-foreground">Связь</span>
-          <h1 className="text-5xl font-light uppercase dark:text-primary">Контакты</h1>
+          <span className="sm:text-base text-sm text-primary uppercase dark:text-foreground">
+            Связь
+          </span>
+          <h1 className="sm:text-5xl text-4xl font-light uppercase dark:text-primary">Контакты</h1>
         </div>
 
         <div className="gap-3 flex flex-col items-center">
@@ -31,7 +33,11 @@ export const Contacts: React.FC = () => {
               transition={{ duration: 0.3, delay: 0.4 }}
             >
               <Link href={item.href} target="_blank">
-                <Button className="text-base rounded-full" variant="ghost" size="lg">
+                <Button
+                  className="sm:text-base text-sm uppercase rounded-full"
+                  variant="ghost"
+                  size="lg"
+                >
                   <Image
                     className="dark:invert"
                     width={24}
@@ -53,7 +59,7 @@ export const Contacts: React.FC = () => {
             transition={{ duration: 0.3, delay: 0.4 }}
           >
             <Link href={`mailto:${CONTACT_EMAIL}`} target="_blank">
-              <Button className="text-base rounded-full" variant="ghost" size="lg">
+              <Button className="sm:text-lg text-base rounded-full" variant="ghost" size="lg">
                 {CONTACT_EMAIL}
               </Button>
             </Link>
@@ -72,7 +78,11 @@ export const Contacts: React.FC = () => {
             transition={{ duration: 0.3, delay: 0.4 }}
           >
             <Link href={Route.FEEDBACK}>
-              <Button className="font-semibold uppercase rounded-full" variant="ghost" size="lg">
+              <Button
+                className="sm:text-base text-sm font-raleway font-semibold uppercase rounded-full"
+                variant="ghost"
+                size="lg"
+              >
                 Связаться со мной
               </Button>
             </Link>

@@ -17,13 +17,13 @@ const GITHUB_USERNAME = process.env.NEXT_PUBLIC_GITHUB_USERNAME
 export const Hero: React.FC = () => {
   return (
     <Container className="flex flex-1 flex-col">
-      <div className="p-14 flex flex-1 flex-col justify-between">
-        <div className="mt-[25vh] flex flex-col items-center">
+      <div className="sm:p-14 p-4 flex flex-1 flex-col items-center justify-center relative">
+        <div className="flex flex-col items-center">
           <div className="mb-5 px-8 py-4 gap-5 flex items-center *:grayscale">
             {SHORT_STACK.map((item, index) => (
               <motion.div
                 key={index}
-                className="max-w-[36px]"
+                className="sm:max-w-[36px] max-w-[24px]"
                 initial={{ rotate: 180, scale: 0 }}
                 animate={{ rotate: 0, scale: 1 }}
                 transition={{
@@ -48,12 +48,12 @@ export const Hero: React.FC = () => {
             ))}
           </div>
 
-          <h1 className="mb-5 text-9xl font-black leading-none uppercase rounded-2xl select-none">
+          <h1 className="mb-5 font-raleway lg:text-9xl md:text-8xl sm:text-7xl text-6xl font-black leading-none uppercase rounded-2xl select-none">
             Forsythe
           </h1>
 
           <TypeAnimation
-            className="text-3xl font-semibold tracking-wider uppercase dark:text-primary"
+            className="px-4 py-1.5 lg:text-3xl md:text-xl sm:text-sm text-xs font-semibold tracking-wider uppercase text-background bg-primary dark:text-foreground"
             sequence={[
               'Frontend React developer.',
               1000,
@@ -84,7 +84,7 @@ export const Hero: React.FC = () => {
           </div>
         </div>
 
-        <div className="mb-10 gap-5 flex flex-col items-center">
+        <div className="bottom-0 mb-14 gap-5 flex flex-col items-center absolute">
           <motion.div
             className="gap-1.5 flex items-center justify-center"
             initial={{ opacity: 0, scale: 0.5 }}
@@ -111,7 +111,7 @@ export const Hero: React.FC = () => {
             </motion.div>
           </motion.div>
 
-          <p className="text-sm font-light dark:text-secondary-foreground/80">
+          <p className="lg:text-sm text-xs font-light dark:text-secondary-foreground/80">
             Powered by Forsythe
           </p>
         </div>

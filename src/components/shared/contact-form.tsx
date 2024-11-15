@@ -77,17 +77,17 @@ export const ContactForm: React.FC<IContactForm> = ({ className }) => {
       {isSubmitting && <ProgressLoader placeholder="Отправляем письмо..." />}
 
       {!isSubmitting && (
-        <div className="w-full gap-20 py-20 flex items-center justify-center">
-          <h1 className="max-w-min mb-10 font-raleway text-6xl text-right font-semibold leading-[3.85rem]">
+        <div className="w-full sm:px-14 px-8 py-20 lg:gap-20 sm:gap-10 gap-5 flex lg:flex-row flex-col items-center justify-center">
+          <h1 className="lg:max-w-min lg:mb-10 mb-3.5 font-raleway lg:text-6xl sm:text-5xl text-4xl lg:text-right font-semibold sm:leading-[3.85rem] leading-normal">
             Связаться со мной
           </h1>
 
           <Form {...form}>
             <form
-              className="max-w-[480px] w-full gap-1.5 flex flex-col relative"
+              className="max-w-[480px] w-full gap-1.5 flex flex-col lg:items-start items-center relative"
               onSubmit={form.handleSubmit(onSubmit)}
             >
-              <div className="w-full mb-5 space-y-5 flex flex-col">
+              <div className="w-full sm:mb-5 mb-1.5 space-y-5 flex flex-col">
                 {form.formState.isSubmitting && (
                   <div className="inset-0 flex items-center justify-center bg-background/60 absolute">
                     <Loader2 className="animate-spin" size={24} />

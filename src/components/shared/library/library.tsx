@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 
 import { Container, LibraryItem, Stats } from '@/components'
@@ -13,12 +15,14 @@ export const Library: React.FC<ILibrary> = ({ repos }) => {
 
   return (
     <Container className="w-full flex flex-1">
-      <div className="py-20 flex flex-1 items-center justify-center">
+      <div className="sm:px-14 px-4 sm:py-20 pt-24 pb-8 flex flex-1 items-center justify-center">
         <div className="flex items-center justify-around">
-          <div className="gap-20 flex flex-col items-center">
-            <Stats items={stats} />
+          <div className="gap-10 flex flex-col items-center">
+            <div className="w-full gap-10 flex items-center justify-center">
+              <Stats items={stats} />
+            </div>
 
-            <div className="gap-8 grid grid-cols-4">
+            <div className="gap-x-10 gap-y-8 grid xl:grid-cols-3 lg:grid-cols-2 sm:grid-cols-1">
               {repos.map((item) => (
                 <LibraryItem key={item.id} {...item} />
               ))}
