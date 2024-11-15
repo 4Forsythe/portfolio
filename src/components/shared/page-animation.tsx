@@ -13,11 +13,18 @@ export const PageAnimation: React.FC<React.PropsWithChildren> = ({ children }) =
       <AnimatePresence mode="wait">
         <div key={pathname} className="w-screen h-screen inset-0 z-50 pointer-events-none fixed">
           <motion.div
-            className="w-full h-full bg-foreground absolute"
-            initial={{ top: '0%' }}
-            animate={{ top: '100%' }}
-            exit={{ top: ['100%', '0%'] }}
-            transition={{ duration: 0.3 }}
+            className="w-full h-full bg-foreground origin-bottom absolute"
+            initial={{ scaleY: 0 }}
+            animate={{ scaleY: 0 }}
+            exit={{ scaleY: 1 }}
+            transition={{ duration: 0.3, ease: [0.2, 1, 0.35, 1] }}
+          />
+          <motion.div
+            className="w-full h-full bg-foreground origin-top absolute"
+            initial={{ scaleY: 1 }}
+            animate={{ scaleY: 0 }}
+            exit={{ scaleY: 0 }}
+            transition={{ duration: 0.3, ease: [0.2, 1, 0.35, 1] }}
           />
         </div>
       </AnimatePresence>
@@ -27,7 +34,7 @@ export const PageAnimation: React.FC<React.PropsWithChildren> = ({ children }) =
           key={pathname}
           className="w-screen h-screen inset-0 z-10 bg-background pointer-events-none fixed overflow-hidden"
           initial={{ opacity: 1 }}
-          animate={{ opacity: 0, transition: { duration: 0.4, delay: 0.2, ease: 'easeInOut' } }}
+          animate={{ opacity: 0, transition: { duration: 0.5, delay: 0.3, ease: 'easeOut' } }}
         />
         {children}
       </AnimatePresence>
