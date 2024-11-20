@@ -1,9 +1,11 @@
+export * from './blog'
 export * from './library'
 
 export { ContactForm } from './contact-form'
 export { Contacts } from './contacts'
 export { Container } from './container'
 export { FAQ } from './faq'
+export { Header } from './header'
 export { Hero } from './hero'
 export { NavbarMenu } from './navbar-menu'
 export { Navbar } from './navbar'
