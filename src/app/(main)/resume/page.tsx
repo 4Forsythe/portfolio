@@ -1,4 +1,4 @@
-import { Resume } from '@/components'
+import { FAQ, Resume } from '@/components'
 
 import type { Metadata } from 'next'
 
@@ -7,5 +7,10 @@ export const metadata: Metadata = {
 }
 
 export default function ResumePage() {
-  return <Resume />
+  return (
+    <>
+      <Resume />
+      <FAQ />
+    </>
+  )
 }

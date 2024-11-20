@@ -1,3 +1,4 @@
+export * from './faq'
 export * from './languages-colors'
 export * from './metadata'
 export * from './routes'
