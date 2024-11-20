@@ -12,6 +12,8 @@ export default {
       fontFamily: {
         inter: 'var(--font-inter)',
         raleway: 'var(--font-raleway)',
+        syne: 'var(--font-syne)',
+        mono: 'var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
       },
       colors: {
         background: 'hsl(var(--background))',

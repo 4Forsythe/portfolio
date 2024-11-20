@@ -1,4 +1,4 @@
-import { Inter, Raleway } from 'next/font/google'
+import { Inter, Raleway, Syne, JetBrains_Mono } from 'next/font/google'
 
 import { Providers } from './providers'
 import { PageAnimation } from '@/components'
@@ -24,6 +24,20 @@ const raleway = Raleway({
   variable: '--font-raleway',
 })
 
+const syne = Syne({
+  weight: ['400', '500', '600', '700', '800'],
+  style: ['normal'],
+  subsets: ['latin'],
+  variable: '--font-syne',
+})
+
+const jetBrainsMono = JetBrains_Mono({
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800'],
+  style: ['normal', 'italic'],
+  subsets: ['latin', 'cyrillic'],
+  variable: '--font-jetbrains-mono',
+})
+
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL as string),
   title: {
@@ -39,8 +53,16 @@ export default function AppLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="ru" suppressHydrationWarning>
-      <body className={cn('antialiased', inter.variable, raleway.variable)}>
+    <html className="scroll-smooth scrollbar" lang="ru" suppressHydrationWarning>
+      <body
+        className={cn(
+          'antialiased',
+          inter.variable,
+          raleway.variable,
+          syne.variable,
+          jetBrainsMono.variable
+        )}
+      >
         <Providers>
           <PageAnimation>{children}</PageAnimation>
         </Providers>

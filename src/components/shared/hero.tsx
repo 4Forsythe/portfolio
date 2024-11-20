@@ -9,8 +9,9 @@ import { motion } from 'framer-motion'
 import { TypeAnimation } from 'react-type-animation'
 
 import { Button, Container, ThemeToggleButton } from '@/components'
-
 import { SHORT_STACK } from '@/constants'
+
+import { Route } from '@/config/routes.config'
 
 const GITHUB_USERNAME = process.env.NEXT_PUBLIC_GITHUB_USERNAME
 
@@ -48,7 +49,7 @@ export const Hero: React.FC = () => {
             ))}
           </div>
 
-          <h1 className="mb-5 font-raleway lg:text-9xl md:text-8xl sm:text-7xl text-6xl font-black leading-none uppercase rounded-2xl select-none">
+          <h1 className="mb-5 sm:font-syne font-black lg:text-8xl md:text-7xl sm:text-6xl text-6xl sm:tracking-tighter uppercase rounded-2xl select-none">
             Forsythe
           </h1>
 
@@ -71,14 +72,24 @@ export const Hero: React.FC = () => {
 
           <div className="my-10">
             <motion.div
+              className="gap-3 flex items-center"
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.3, delay: 0.4 }}
             >
               <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-                <Button className="border border-border rounded-full" variant="secondary">
+                <Button className="border border-border" variant="secondary">
                   Скачать резюме
                 </Button>
+              </motion.div>
+
+              <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                <Link href={Route.BLOG}>
+                  <Button className="border border-border relative" variant="secondary">
+                    Dev Blog
+                    <span className="w-2 h-2 -top-0.5 -right-0.5 bg-primary rounded-full absolute" />
+                  </Button>
+                </Link>
               </motion.div>
             </motion.div>
           </div>
