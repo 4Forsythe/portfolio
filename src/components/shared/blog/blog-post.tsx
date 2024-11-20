@@ -15,12 +15,12 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
+  ShareButton,
 } from '@/components'
 
 import { Route } from '@/config/routes.config'
 
 import type { BlogType } from '@/types'
-import { ShareButton } from '../share-button'
 
 interface IBlogPost extends BlogType {
   className?: string
@@ -113,6 +113,10 @@ export const BlogPost: React.FC<IBlogPost> = ({
         </div>
 
         <BlogSpoilers spoilers={spoilers} />
+      </div>
+
+      <div className="mt-20">
+        <ShareButton url={`${process.env.NEXT_PUBLIC_BASE_URL + Route.BLOG}/${slug}`} />
       </div>
     </article>
   )
