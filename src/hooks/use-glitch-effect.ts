@@ -12,8 +12,8 @@ type GlitchEffectOptions = {
 export function useGlitchEffect(text: string, options?: GlitchEffectOptions): string {
   const [displayText, setDisplayText] = React.useState('')
 
-  let duration = options?.duration || 500
-  let interval = options?.interval || 7000
+  const duration = options?.duration || 500
+  const interval = options?.interval || 7000
 
   const handleGlitchEffect = (interval: NodeJS.Timeout | null) => {
     let iteration = 0
@@ -42,7 +42,7 @@ export function useGlitchEffect(text: string, options?: GlitchEffectOptions): st
   }
 
   React.useEffect(() => {
-    let timeout: NodeJS.Timeout | null = null
+    const timeout: NodeJS.Timeout | null = null
 
     handleGlitchEffect(timeout)
 

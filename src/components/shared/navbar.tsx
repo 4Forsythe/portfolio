@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils'
 import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
-import { Button, NavbarMenu, ThemeToggleButton, Toggle } from '@/components'
+import { NavbarMenu, ThemeToggleButton, Toggle } from '@/components'
 
 import { Route } from '@/config/routes.config'
 
