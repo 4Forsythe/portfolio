@@ -6,6 +6,8 @@ import { getBlogMetadata } from '@/lib/get-blog-metadata'
 
 import { BlogPost } from '@/components'
 
+import type { Metadata } from 'next'
+
 interface IBlogPostPage {
   params: Promise<{ slug: string }>
 }
@@ -20,6 +22,26 @@ export async function generateStaticParams() {
   return metadata.map((post) => ({
     slug: post.slug,
   }))
+}
+
+export async function generateMetadata({ params }: IBlogPostPage): Promise<Metadata> {
+  const { slug } = await params
+  const metadata = await getData(slug)
+
+  if (!metadata) notFound()
+
+  const { title, description, imageUrl, keywords } = metadata.frontmatter
+
+  return {
+    title,
+    description,
+    keywords,
+    ...(imageUrl && {
+      openGraph: {
+        images: [{ url: new URL(imageUrl) }],
+      },
+    }),
+  }
 }
 
 export default async function BlogPostPage({ params }: IBlogPostPage) {
