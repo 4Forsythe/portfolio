@@ -92,6 +92,9 @@ importers:
       rehype-pretty-code:
         specifier: ^0.14.0
         version: 0.14.0(shiki@1.23.1)
+      shiki:
+        specifier: ^1.23.1
+        version: 1.23.1
       slugify:
         specifier: ^1.6.6
         version: 1.6.6
