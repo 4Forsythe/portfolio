@@ -1,6 +1,7 @@
 export * from './blog'
 export * from './library'
 
+export { BackToTop } from './back-to-top'
 export { ContactForm } from './contact-form'
 export { Contacts } from './contacts'
 export { Container } from './container'
