@@ -155,3 +155,11 @@ code[data-line-numbers-max-digits='3'] > [data-line]::before {
 code[data-line-numbers-max-digits='4'] > [data-line]::before {
   width: 2.25rem;
 }
+
+code span[data-highlighted-line] {
+  @apply bg-white/10 border-l-2 border-blue-300;
+}
+
+code mark[data-highlighted-chars] {
+  @apply px-1 bg-blue-300/30;
+}
