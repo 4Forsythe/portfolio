@@ -1,0 +1,545 @@
+---
+title: Как я разрабатывал свой сайт-портфолио?
+description: Делюсь опытом в разработке Full-stack приложения на примере своего блога, который использует Framer Motion, MDX Remote, Tailwind CSS Typograhy и плагины Rehype.
+imageUrl: /images/website-opengraph.jpg
+tags:
+  [
+    Программирование,
+    Web-программирование,
+    Сайт-портфолио,
+    Блог,
+    Full-stack,
+    React,
+    Next.js,
+    Tailwind,
+    MDX,
+  ]
+createdAt: 11/23/2024
+---
+
+## Введение
+
+В ноябре 2024 года мне в голову пришла идея о создании полноценного сайта-портфолио, который бы включал интерактивный блог со специальной разметкой для читателей.
+
+Основная концепция заключалась в том, чтобы написать максимально простой и надежный код без необходимости интеграции с внешним CMS, такими как WordPress, Joomla, Drupal, Strapi и другие. Управление контентом блога и некоторых других модулей планировалось реализовать при помощи удаленных файлов разметки формата .mdx.
+
+MDX — это формат, который позволяет встраивать компоненты React прямо в Markdown-документы. Это делает его идеальным для создания интерактивных статей и документации.
+
+### В чем преимущество MDX?
+
+- **Компоненты:** Можно вставлять React-компоненты прямо в разметку.
+- **Простота:** Комбинация React и Markdown упрощает процесс написания статей блога.
+- **Интерактивность**: Возможность добавления отдельных интерактивных элементов.
+- **Автономность:** При желании, можно управлять контентом не прибегая к коду.
+
+## О технологиях
+
+В качестве фреймворка был выбран NextJS 15 на базе React 19.
+
+#### UI библиотеки
+
+- **Shadcn** — универсальная библиотека «готовых» компонентов
+- **Tailwind CSS** — до боли знакомый всем CSS-фреймворк
+- **Next Themes** — библиотека для работы с цветовой схемой приложения
+- **Framer Motion** — библиотека анимированных компонентов
+
+#### MDX библиотеки
+
+- **Next MDX Remote** — особый пакет для работы с .mdx, который рекомендует NextJS
+- **Rehype Pretty Code и Shiki** — набор плагинов для подсветки синтаксиса кода в Markdown
+- **Tailwind CSS Typography** — специальный модуль стилей для типографии
+
+#### Другие библиотеки
+
+- **Nodemailer** — Node.js библиотека для отправки писем
+- **React Hook Form** — библиотека для работы с формами
+- **Zod** — библиотека для валидации схем
+
+По мере дальнейшего развития сайта могут появиться другие мажорные плагины, пакеты, библиотеки или даже фреймворки...
+
+## Как я придумывал дизайн
+
+Поскольку у меня были свои планы относительно сроков релиза проекта, пришлось остановиться на более простом и строгом варианте. Концепция дизайна, от главной страницы до раздела с блогом, была придумана и разработана мной с нуля.
+
+В ходе разработки адаптивного дизайна использовался принцип «как у всех». За основу взяты макеты самых распространенных мобильных и широкоэкранных разрешений.
+
+## Про Front-end
+
+В качестве базового набора UI были выбраны готовые компоненты из библиотеки [shadcn/ui](https://ui.shadcn.com): кнопки, элементы формы, бейджики, «хлебные крошки» и т.д.
+
+#### Почему Shadcn?
+
+Я думаю, в этом выборе сыграло роль сразу несколько факторов, но самыми значимыми для меня были удобство в использовании и относительно нейтральная, строгая стилизация.
+
+Для меня было важно, чтобы библиотечные компоненты не выделялись среди остальных и гармонично вписывались в дизайн интерфейса.
+
+#### О Framer Motion
+
+Я впервые применял компоненты [framer-motion](https://motion.dev) на своем опыте, так что мне потребовалось некоторое время на изучение их великолепной документации.
+
+Библиотека оказалась не сложной, и при помощи нескольких анимаций я создал очень крутой переход между страницами.
+
+```tsx title="page-animation.tsx"
+'use client'
+
+import React from 'react'
+import { usePathname } from 'next/navigation'
+
+import { motion, AnimatePresence } from 'framer-motion'
+
+export const PageAnimation: React.FC<React.PropsWithChildren> = ({ children }) => {
+  const pathname = usePathname()
+
+  return (
+    <>
+      <AnimatePresence mode="wait">
+        <div key={pathname} className="w-screen h-screen inset-0 z-50 pointer-events-none fixed">
+          <motion.div
+            className="w-full h-full bg-foreground origin-bottom absolute"
+            initial={{ scaleY: 0 }}
+            animate={{ scaleY: 0 }}
+            exit={{ scaleY: 1 }}
+            transition={{ duration: 0.3, ease: [0.2, 1, 0.35, 1] }}
+          />
+          <motion.div
+            className="w-full h-full bg-foreground origin-top absolute"
+            initial={{ scaleY: 1 }}
+            animate={{ scaleY: 0 }}
+            exit={{ scaleY: 0 }}
+            transition={{ duration: 0.3, ease: [0.2, 1, 0.35, 1] }}
+          />
+        </div>
+      </AnimatePresence>
+
+      <AnimatePresence>
+        <motion.div
+          key={pathname}
+          className="w-screen h-screen inset-0 z-10 bg-background pointer-events-none fixed overflow-hidden"
+          initial={{ opacity: 1 }}
+          animate={{ opacity: 0, transition: { duration: 0.5, delay: 0.3, ease: 'easeOut' } }}
+        />
+        {children}
+      </AnimatePresence>
+    </>
+  )
+}
+```
+
+И обернул им все страницы моего приложения.
+
+```tsx title="layout.tsx" showLineNumbers {18} /PageAnimation/
+export default function AppLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode
+}>) {
+  return (
+    <html className="scroll-smooth scrollbar" lang="ru" suppressHydrationWarning>
+      <body
+        className={cn(
+          'antialiased',
+          inter.variable,
+          raleway.variable,
+          syne.variable,
+          jetBrainsMono.variable
+        )}
+      >
+        <Providers>
+          <PageAnimation>{children}</PageAnimation>
+        </Providers>
+      </body>
+    </html>
+  )
+}
+```
+
+#### Альтернативная тема
+
+[Документация Shadcn](https://ui.shadcn.com/docs/dark-mode/next) также включает в себя рекомендации по подключению темного режима в приложении при помощи отдельного пакета [next-themes](https://github.com/pacocoursey/next-themes#readme).
+
+Был создан отдельный компонент-провайдер для темы.
+
+```tsx title="theme-provider.tsx"
+'use client'
+
+import React from 'react'
+
+import { ThemeProvider as NextThemesProvider } from 'next-themes'
+
+type ThemeProviderProps = typeof NextThemesProvider
+
+export const ThemeProvider: React.FC<React.ComponentProps<ThemeProviderProps>> = ({
+  children,
+  ...props
+}) => {
+  return <NextThemesProvider {...props}>{children}</NextThemesProvider>
+}
+```
+
+Как и любой другой провайдер, он является клиентской частью приложения и по-классике будет одним из слоев в компоненте с другими возможными провайдерами.
+
+```tsx title="providers.tsx" showLineNumbers {9-11} /ThemeProvider/2-3
+'use client'
+
+import React from 'react'
+
+import { ThemeProvider } from '@/components'
+
+export const Providers: React.FC<React.PropsWithChildren> = ({ children }) => {
+  return (
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+      {children}
+    </ThemeProvider>
+  )
+}
+```
+
+#### Подключение Nodemailer
+
+Весьма полезной библиотекой оказался [nodemailer](https://nodemailer.com), который сильно облегчил возможность генерации feedback-писем на моем почтовом ящике.
+
+Конфигурация позволит подключить почтовый ящик с вашими данными к рассылке писем.
+
+```ts title="mailer.config.ts"
+import nodemailer from 'nodemailer'
+
+const SMTP_EMAIL = process.env.SMTP_EMAIL
+const SMTP_PASSWORD = process.env.SMTP_PASSWORD
+
+export const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  port: 587,
+  secure: false,
+  auth: {
+    user: SMTP_EMAIL,
+    pass: SMTP_PASSWORD,
+  },
+})
+```
+
+Функция **send-mail** является серверной, поскольку она использует файловую систему и handlebars. Я использую отдельный тип и интерфейс, чтобы понимать какие динамические значения будут в шаблоне HTML у отправляемого письма.
+
+```ts title="send-mail.ts"
+'use server'
+
+import * as fs from 'fs'
+import * as handlebars from 'handlebars'
+
+import { transporter } from '@/config/mailer.config'
+
+const SMTP_EMAIL = process.env.SMTP_EMAIL
+
+type Replacements = Record<string, string | undefined>
+
+interface ISendMailOptions {
+  from: string
+  to: string
+  subject: string
+  text?: string
+  html?: {
+    template: string
+    replacements: Replacements
+  }
+}
+
+export async function sendMail(options: ISendMailOptions) {
+  try {
+    let html = undefined
+
+    if (options.html) {
+      const source = fs.readFileSync(options.html.template, 'utf-8').toString()
+      if (source) {
+        const template = handlebars.compile(source)
+        html = template(options.html.replacements)
+      }
+    }
+
+    return transporter.sendMail({
+      from: `${options.from} <${SMTP_EMAIL}>`,
+      to: options.to,
+      subject: options.subject,
+      text: options.text,
+      html: html,
+    })
+  } catch (error) {
+    console.error('sendMail: Failed to send mail', error)
+  }
+}
+```
+
+## Разработка блога
+
+При разработке блога я ориентировался на [рекомендации по работе с MDX](https://nextjs.org/docs/app/building-your-application/configuring/mdx) от NextJS.
+
+Функция **getBlogPost** достает содержимое файла в директории с контентом и компилирует frontmatter и content из MDX:
+
+- **Frontmatter** — это метаданные, полученные из заголовков документа .mdx.
+- **Content** — содержимое разметки Markdown и React-компонентов.
+
+Доставать содержимое разметки Markdown можно различными способами, например, при помощи библиотек [gray-matter](https://github.com/jonschlinkert/gray-matter#readme) и [markdown-to-jsx](https://github.com/quantizor/markdown-to-jsx#readme), но документация NextJS рекомендует делать это именно при помощи пакета [next-mdx-remote](https://github.com/hashicorp/next-mdx-remote#readme).
+
+```ts title="get-blog-post.ts"
+import fs from 'fs'
+import path from 'path'
+
+import { calcReadingTime } from '@/lib/utils'
+import { CONTENT_DIR } from '@/lib/get-blog-metadata'
+import { compileMDX } from 'next-mdx-remote/rsc'
+
+import type { BlogFrontmatterType, BlogType } from '@/types'
+
+const rehypePrettyCodeOptions: Options = {
+  theme: 'dark-plus',
+  defaultLang: 'md',
+}
+
+export async function getBlogPost(slug: string): Promise<BlogType | undefined> {
+  const fileName = slug + '.mdx'
+  const filePath = path.join(CONTENT_DIR, fileName)
+
+  const isFile = fs.existsSync(filePath)
+
+  if (!isFile) return undefined
+
+  const file = fs.readFileSync(filePath, 'utf-8')
+
+  const { frontmatter, content } = await compileMDX<BlogFrontmatterType>({
+    source: file,
+    options: {
+      parseFrontmatter: true,
+    },
+  })
+
+  if (frontmatter.isPublished === false) return undefined
+
+  return {
+    slug: path.parse(fileName).name,
+    frontmatter,
+    content,
+    reading: calcReadingTime(file),
+  }
+}
+```
+
+Функция **getBlogMetadata** выполнит запрос на получение всех статей из директории с контентом. Перед тем как вернуть результат, она очистит массив от неопределенных значений и отсортирует его по дате создания.
+
+```ts title="get-blog-metadata.ts"
+import fs from 'fs'
+import path from 'path'
+
+import { getBlogPost } from '@/lib/get-blog-post'
+
+import type { BlogType } from '@/types'
+
+export const CONTENT_DIR = path.join(process.cwd(), 'src/content/blog')
+
+export async function getBlogMetadata(): Promise<BlogType[] | []> {
+  const files = fs.readdirSync(CONTENT_DIR)
+
+  const metadata = await Promise.all(
+    files.map(async (file) => await getBlogPost(path.parse(file).name))
+  )
+
+  const blog = metadata.filter((file) => file !== undefined)
+
+  return blog.sort((one, two) => {
+    const dateOne = new Date(one.frontmatter.createdAt)
+    const dateTwo = new Date(two.frontmatter.createdAt)
+
+    return dateTwo.getDate() - dateOne.getDate()
+  })
+}
+```
+
+#### Static Site Generation (SSG)
+
+Функция [generateStaticParams](https://nextjs.org/docs/app/api-reference/functions/generate-static-params) сгенерирует все динамические маршруты статей блога еще во время сборки приложения, а не по каждому запросу отдельно. Это избавит серверную сторону от лишних запросов, а также значительно ускорит отклик на сайте.
+
+Генерация динамических данных с помощью **generateStaticParams** будет менее эффективна для данных, которые требуют постоянного обновления для поддержания актуальности информации.
+
+```tsx title="blog/[slug].tsx"
+const getData = cache(async (slug: string) => {
+  return getBlogPost(slug)
+})
+
+export async function generateStaticParams() {
+  const metadata = await getBlogMetadata()
+
+  return metadata.map((post) => ({
+    slug: post.slug,
+  }))
+}
+```
+
+#### Типографика
+
+Для применения стандартных типографических стилей к контенту Markdown был подключен модуль Tailwind CSS — [@tailwind/typography](https://tailwindcss-typography.vercel.app).
+
+```ts title="tailwind.config.ts" showLineNumbers {5} "require('@tailwindcss/typography')"
+import type { Config } from 'tailwindcss'
+
+export default {
+  // ...
+  plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')],
+} satisfies Config
+```
+
+Применив css-свойство **prose** на родительский блок содержимого MDX, Tailwind создаст для вложенных элементов особые типографические стили.
+
+```tsx title="blog-post.tsx" showLineNumbers {1} /prose/1
+<div ref={contentRef} className="max-w-full prose dark:prose-invert">
+  {content}
+</div>
+```
+
+#### Подключение Rehype-плагинов
+
+Установка плагина [rehype-pretty-code](https://github.com/rehype-pretty/rehype-pretty-code#readme) позволила более тонко стилизовать подсветку синтаксиса кода при использовании модуля Tailwind CSS Typography.
+
+Для начала можно определить конфигурацию типа **Options**, импортированного из пакета rehype-pretty-code.
+
+```ts title="get-blog-post.ts" showLineNumbers
+const rehypePrettyCodeOptions: Options = {
+  theme: 'dark-plus',
+  defaultLang: 'md',
+}
+```
+
+Подключить сам плагин можно внутри объекта **mdxOptions**.
+
+```ts title="get-blog-post.ts" showLineNumbers {6}
+const { frontmatter, content } = await compileMDX<BlogFrontmatterType>({
+  source: file,
+  options: {
+    parseFrontmatter: true,
+    mdxOptions: {
+      rehypePlugins: [[rehypePrettyCode, rehypePrettyCodeOptions]],
+      format: 'mdx',
+    },
+  },
+})
+```
+
+Плагин rehype устанавливает значения в data-атрибуты элементов синтаксиса кода, поэтому, при желании, можно стилизовать практически любые эффекты.
+
+Это одна из немногих причин, по которой я выбрал именно **rehype-pretty-code**.
+
+```css title="globals.css"
+[data-rehype-pretty-code-fragment] [data-line]::before {
+  color: rgba(255, 255, 255, 0.5);
+  counter-increment: line;
+  content: counter(line);
+  display: inline-block;
+  width: 1rem;
+  margin-right: 1rem;
+  text-align: right;
+}
+
+code[data-line-numbers] {
+  counter-reset: line;
+}
+
+code[data-line-numbers] > [data-line]::before {
+  counter-increment: line;
+  content: counter(line);
+  display: inline-block;
+  width: 0.75rem;
+  margin-right: 2rem;
+  text-align: right;
+  color: gray;
+}
+```
+
+## SEO-оптимизация
+
+Для обеспечения поисковой оптимизации я обратился к [официальной документации](https://nextjs.org/docs/app/building-your-application/optimizing/metadata) от NextJS, которая подробно объясняла как использовать API метаданных, чтобы определять мета-теги и улучшать SEO сайта.
+
+Функция **generateMetadata** генерирует динамические метаданные для маршрутов приложения и возвращает Promise с результатом асинхронной операции.
+
+```tsx title="library/[slug].tsx"
+export async function generateMetadata({ params }: ILibraryPage): Promise<Metadata> {
+  const { slug } = await params
+  const repo = await getData(slug)
+
+  if (!repo) notFound()
+
+  return {
+    title: repo.name,
+    description: repo.description || repo.full_name,
+  }
+}
+```
+
+Генерация карты сайта (sitemap) также является важным фактором для SEO-оптимизации.
+
+Функция **sitemap**, которую рекомендует использовать документация NextJS, перечисляет все возможные маршруты приложения, в том числе и динамические.
+
+```ts title="sitemap.ts"
+import { MetadataRoute } from 'next'
+
+import { getBlogMetadata } from '@/lib/get-blog-metadata.ts'
+
+import { Route } from '@/config/routes.config.ts'
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const blog = await getBlogMetadata()
+
+  const metadata: MetadataRoute.Sitemap = blog.map(({ slug, createdAt }) => ({
+    url: `${Route.BLOG}/${slug}`,
+    lastModified: new Date(createdAt),
+  }))
+
+  return [
+    {
+      url: Route.HOME,
+      lastModified: new Date(),
+    },
+    {
+      url: Route.RESUME,
+      lastModified: new Date(),
+    },
+    {
+      url: Route.LIBRARY,
+      lastModified: new Date(),
+    },
+    {
+      url: Route.CONTACTS,
+      lastModified: new Date(),
+    },
+    {
+      url: Route.FEEDBACK,
+      lastModified: new Date(),
+    },
+    {
+      url: Route.BLOG,
+      lastModified: new Date(),
+    },
+
+    ...metadata,
+  ]
+}
+```
+
+Функция **robots** помогает понять поисковым машинам к каким маршрутам они могут иметь доступ, а к каким — нет. Неразрешенные пути не будут индексироваться при поисковом запросе, соответственно не отобразятся в результате поиска.
+
+```ts title="robots.ts"
+import { MetadataRoute } from 'next'
+
+import { Route } from '@/config/routes.config.ts'
+
+export default function robots(): MetadataRoute.Robots {
+  return {
+    rules: {
+      userAgent: '*',
+      allow: '/',
+    },
+    sitemap: Route.SITEMAP,
+  }
+}
+```
+
+## Заключение
+
+На этом моменте заканчиваются все те этапы разработки, которые показались мне наиболее интересными и необычными, и которыми бы я хотел поделиться в первую очередь.
+
+Содержимое статьи актуально для последней минорной версии 1.1. Отслеживать все последующие изменения можно в моем [репозитории](https://github.com/4Forsythe/portfolio) и в [разделе с релизами](https://github.com/4Forsythe/portfolio/releases).
