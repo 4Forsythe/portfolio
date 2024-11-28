@@ -30,15 +30,15 @@ export async function generateMetadata({ params }: IBlogPostPage): Promise<Metad
 
   if (!metadata) notFound()
 
-  const { title, description, imageUrl, keywords } = metadata.frontmatter
+  const { title, description, imageUrl, tags } = metadata.frontmatter
 
   return {
     title,
     description,
-    keywords,
+    keywords: tags,
     ...(imageUrl && {
       openGraph: {
-        images: [{ url: new URL(imageUrl) }],
+        images: [{ url: imageUrl }],
       },
     }),
   }

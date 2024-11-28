@@ -4,6 +4,7 @@ export type BlogFrontmatterType = {
   imageUrl?: string
   isPublished?: boolean
   createdAt: string
+  tags?: string[]
 }
 
 export type BlogType = {

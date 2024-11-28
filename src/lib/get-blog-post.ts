@@ -1,17 +1,14 @@
 import fs from 'fs'
 import path from 'path'
+import rehypePrettyCode from 'rehype-pretty-code'
 
 import { calcReadingTime } from '@/lib/utils'
 import { CONTENT_DIR } from '@/lib/get-blog-metadata'
 import { compileMDX } from 'next-mdx-remote/rsc'
-import rehypePrettyCode, { Options } from 'rehype-pretty-code'
+
+import { rehypePrettyCodeOptions } from '@/config/rehype-plugins.config'
 
 import type { BlogFrontmatterType, BlogType } from '@/types'
-
-const rehypePrettyCodeOptions: Options = {
-  theme: 'dark-plus',
-  defaultLang: 'md',
-}
 
 export async function getBlogPost(slug: string): Promise<BlogType | undefined> {
   const fileName = slug + '.mdx'

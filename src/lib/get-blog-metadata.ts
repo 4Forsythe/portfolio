@@ -14,5 +14,12 @@ export async function getBlogMetadata(): Promise<BlogType[] | []> {
     files.map(async (file) => await getBlogPost(path.parse(file).name))
   )
 
-  return metadata.filter((file) => file !== undefined)
+  const blog = metadata.filter((file) => file !== undefined)
+
+  return blog.sort((one, two) => {
+    const dateOne = new Date(one.frontmatter.createdAt)
+    const dateTwo = new Date(two.frontmatter.createdAt)
+
+    return dateTwo.getDate() - dateOne.getDate()
+  })
 }
