@@ -13,11 +13,11 @@ import { SHORT_STACK } from '@/constants'
 
 import { Route } from '@/config/routes.config'
 
-const GITHUB_USERNAME = process.env.NEXT_PUBLIC_GITHUB_USERNAME
+const REPOSITORY_URL = process.env.NEXT_PUBLIC_REPOSITORY_URL
 
 export const Hero: React.FC = () => {
   return (
-    <Container className="flex flex-1 flex-col">
+    <Container className="max-h-screen flex flex-1 flex-col">
       <div className="sm:p-14 p-4 flex flex-1 flex-col items-center justify-center relative">
         <div className="flex flex-col items-center">
           <div className="mb-5 px-8 py-4 gap-5 flex items-center *:grayscale">
@@ -54,7 +54,7 @@ export const Hero: React.FC = () => {
           </h1>
 
           <TypeAnimation
-            className="px-4 py-1.5 lg:text-3xl md:text-xl sm:text-sm text-xs font-semibold tracking-wider uppercase text-background bg-primary dark:text-foreground"
+            className="px-4 py-1.5 lg:text-3xl md:text-xl sm:text-sm text-xs font-semibold tracking-wider uppercase text-background bg-primary"
             sequence={[
               'Frontend React developer.',
               1000,
@@ -107,7 +107,7 @@ export const Hero: React.FC = () => {
             </motion.div>
 
             <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-              <Link href={`https://github.com/${GITHUB_USERNAME}`} target="_blank">
+              <Link href={REPOSITORY_URL as string} target="_blank">
                 <Button variant="outline" size="icon">
                   <Image
                     className="dark:invert"

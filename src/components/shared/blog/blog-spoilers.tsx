@@ -14,15 +14,15 @@ interface IBlogSpoilers {
 
 export const BlogSpoilers: React.FC<IBlogSpoilers> = ({ spoilers, className }) => {
   return (
-    <div className={cn('w-[200px] max-h-[600px] top-10 p-4 bg-background sticky', className)}>
+    <div className={cn('w-full lg:w-[200px] lg:max-h-[600px] top-10 p-4 bg-background', className)}>
       <ScrollArea className="h-full top-0 sticky">
-        <span className="p-2 font-semibold">В этой статье</span>
+        <span className="p-2 lg:text-base sm:text-lg text-base font-semibold">В этой статье</span>
         <ul className="mt-4 flex flex-col">
           {spoilers.map((spoiler, index) => (
             <li key={index} className="mb-0.5">
               <Link href={`#${spoiler.id}`}>
                 <Button
-                  className="h-fit px-2 text-muted-foreground text-left whitespace-normal"
+                  className="h-fit px-2 lg:text-sm md:text-base text-muted-foreground text-left whitespace-normal text-pretty"
                   variant="ghost"
                 >
                   {spoiler.text}
