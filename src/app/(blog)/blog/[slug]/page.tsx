@@ -2,7 +2,7 @@ import { cache } from 'react'
 import { notFound } from 'next/navigation'
 
 import { getBlogPost } from '@/lib/get-blog-post'
-import { getBlogMetadata } from '@/lib/get-blog-metadata'
+import { getBlogParams } from '@/lib/get-blog-params'
 
 import { BlogPost } from '@/components'
 
@@ -16,12 +16,8 @@ const getData = cache(async (slug: string) => {
   return getBlogPost(slug)
 })
 
-export async function generateStaticParams() {
-  const metadata = await getBlogMetadata()
-
-  return metadata.map((post) => ({
-    slug: post.slug,
-  }))
+export function generateStaticParams() {
+  return getBlogParams()
 }
 
 export async function generateMetadata({ params }: IBlogPostPage): Promise<Metadata> {

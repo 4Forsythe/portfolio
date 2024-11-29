@@ -5,10 +5,10 @@ import { getBlogPost } from '@/lib/get-blog-post'
 
 import type { BlogType } from '@/types'
 
-export const CONTENT_DIR = path.join(process.cwd(), 'src/content/blog')
+const contentDir = path.join(process.cwd(), 'src/content/blog')
 
 export async function getBlogMetadata(): Promise<BlogType[] | []> {
-  const files = fs.readdirSync(CONTENT_DIR)
+  const files = fs.readdirSync(contentDir).filter((file) => file.endsWith('.mdx'))
 
   const metadata = await Promise.all(
     files.map(async (file) => await getBlogPost(path.parse(file).name))
