@@ -14,7 +14,12 @@ interface IBlogSpoilers {
 
 export const BlogSpoilers: React.FC<IBlogSpoilers> = ({ spoilers, className }) => {
   return (
-    <div className={cn('w-full lg:w-[200px] lg:max-h-[600px] top-10 p-4 bg-background', className)}>
+    <div
+      className={cn(
+        'w-full lg:w-[200px] lg:max-h-[600px] top-10 sm:p-4 py-2 bg-background',
+        className
+      )}
+    >
       <ScrollArea className="h-full top-0 sticky">
         <span className="p-2 lg:text-base sm:text-lg text-base font-semibold">В этой статье</span>
         <ul className="mt-4 flex flex-col">

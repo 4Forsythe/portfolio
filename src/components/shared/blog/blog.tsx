@@ -34,7 +34,7 @@ export const Blog: React.FC<IBlog> = ({ items }) => {
         </div>
       )}
 
-      <div className="mb-10 gap-20 flex lg:flex-row flex-col">
+      <div className="mb-10 gap-20 flex lg:flex-row flex-col-reverse">
         <section className="lg:w-[230px] w-full flex flex-col lg:items-start items-center">
           <Image
             className="mb-4 rounded-full select-none pointer-events-none"

@@ -63,7 +63,7 @@ export const BlogPost: React.FC<IBlogPost> = ({
   })
 
   return (
-    <article className={cn('w-full pt-14 pb-20 xl:px-0 lg:px-4 sm:px-6 px-5', className)}>
+    <article className={cn('w-full py-14 xl:px-0 lg:px-4 sm:px-6 px-5', className)}>
       <motion.div
         className="h-1 top-0 inset-0 z-50 bg-foreground origin-[0%] fixed"
         style={{ scaleX }}
@@ -82,7 +82,7 @@ export const BlogPost: React.FC<IBlogPost> = ({
       </Breadcrumb>
 
       <header className="mb-10">
-        <h1 className="mb-8 text-7xl font-bold">{title}</h1>
+        <h1 className="mb-8 sm:text-7xl text-5xl font-bold break-words">{title}</h1>
 
         <span className="mb-5 gap-1 text-xs font-medium text-muted-foreground flex items-center uppercase">
           {`${new Date(createdAt).toLocaleString(undefined, {
@@ -92,7 +92,7 @@ export const BlogPost: React.FC<IBlogPost> = ({
           })} — ${reading} мин`}
         </span>
 
-        <p className="mb-5 text-2xl leading-8">{description}</p>
+        <p className="mb-5 sm:text-2xl text-lg leading-8">{description}</p>
 
         {imageUrl && (
           <div className="w-full max-h-[400px] mb-5 flex items-center justify-center rounded-xl overflow-hidden">
