@@ -19,20 +19,30 @@ import { FAQ as FAQ_ITEMS, SOCIALS } from '@/constants'
 
 export const FAQ: React.FC = () => {
   return (
-    <Container className="max-w-[768px] w-full min-h-screen flex flex-1 flex-col">
-      <div className="sm:px-14 px-10 py-20 flex flex-1 flex-col sm:items-start items-center justify-center">
-        <div className="mb-10">
-          <h1 className="font-raleway sm:text-4xl text-3xl font-medium uppercase dark:text-primary">
-            Вопрос—ответ
-          </h1>
-        </div>
+    <Container className="max-w-[768px] w-full sm:min-h-screen flex flex-1 flex-col">
+      <div className="sm:px-14 sm:py-10 p-10 pb-20 flex flex-1 flex-col sm:items-start items-center justify-center">
+        <motion.div
+          className="mb-10"
+          initial={{ x: -300, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.75, delay: 0.55 }}
+        >
+          <h1 className="font-syne sm:text-4xl text-3xl font-extrabold uppercase">FAQ</h1>
+        </motion.div>
 
         <Accordion className="w-full mb-10" type="single" collapsible>
-          {FAQ_ITEMS.map((faq) => (
-            <AccordionItem key={faq.slug} value={faq.slug}>
-              <AccordionTrigger>{faq.question}</AccordionTrigger>
-              <AccordionContent className="font-raleway">{faq.answer}</AccordionContent>
-            </AccordionItem>
+          {FAQ_ITEMS.map((faq, index) => (
+            <motion.div
+              key={faq.slug}
+              initial={{ x: -300, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.3, delay: (index + 1) * 0.4 }}
+            >
+              <AccordionItem value={faq.slug}>
+                <AccordionTrigger>{faq.question}</AccordionTrigger>
+                <AccordionContent className="font-raleway">{faq.answer}</AccordionContent>
+              </AccordionItem>
+            </motion.div>
           ))}
         </Accordion>
 
@@ -43,10 +53,8 @@ export const FAQ: React.FC = () => {
               initial={{ rotate: 180, scale: 0 }}
               animate={{ rotate: 0, scale: 1 }}
               transition={{
-                type: 'spring',
-                stiffness: 260,
-                damping: 20,
-                delay: 0.4,
+                duration: 0.3,
+                delay: FAQ_ITEMS.length * 0.4,
               }}
             >
               <Link href={item.href} target="_blank">
