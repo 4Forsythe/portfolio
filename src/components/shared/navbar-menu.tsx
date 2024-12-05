@@ -10,6 +10,8 @@ import { motion } from 'framer-motion'
 import { Button } from '@/components'
 import { ROUTES } from '@/constants'
 
+import { Route } from '@/config/routes.config'
+
 interface INavbarMenu {
   className?: string
 }
@@ -30,10 +32,14 @@ export const NavbarMenu: React.FC<INavbarMenu> = ({ className }) => {
             {pathname === item.href && (
               <span className="text-sm font-light sm:block hidden">{item.name} —</span>
             )}
-            <Button className="sm:w-10 w-8 sm:h-10 h-8" variant="secondary" size="icon">
+            <Button className="sm:w-10 w-8 sm:h-10 h-8 relative" variant="secondary" size="icon">
               <item.icon
                 className={cn(pathname === item.href && 'sm:w-6 w-4 sm:h-6 h-4 text-primary')}
               />
+
+              {item.href === Route.BLOG && (
+                <span className="w-1.5 h-1.5 -top-0.5 -right-0.5 bg-primary rounded-sm absolute" />
+              )}
             </Button>
           </Link>
         </motion.div>

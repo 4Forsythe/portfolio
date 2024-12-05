@@ -1,4 +1,4 @@
-import { TvMinimal, UserPen, Layers3, Link, type LucideIcon } from 'lucide-react'
+import { TvMinimal, UserPen, Layers, Mail, Code, type LucideIcon } from 'lucide-react'
 
 import { Route } from '@/config/routes.config'
 
@@ -21,12 +21,17 @@ export const ROUTES: IRouteConstant[] = [
   },
   {
     name: 'Репозитории',
-    icon: Layers3,
+    icon: Layers,
     href: Route.LIBRARY,
   },
   {
-    name: 'Связь',
-    icon: Link,
+    name: 'Контакты',
+    icon: Mail,
     href: Route.CONTACTS,
+  },
+  {
+    name: 'Блог',
+    icon: Code,
+    href: Route.BLOG,
   },
 ]

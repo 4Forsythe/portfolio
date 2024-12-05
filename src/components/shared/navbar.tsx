@@ -16,9 +16,9 @@ interface INavbar {
 }
 
 export const Navbar: React.FC<INavbar> = ({ className }) => {
-  const pathname = usePathname()
-
   const [isActive, setIsActive] = React.useState(false)
+
+  const pathname = usePathname()
 
   return (
     <nav
@@ -27,9 +27,36 @@ export const Navbar: React.FC<INavbar> = ({ className }) => {
         className
       )}
     >
-      <div className="sm:p-4 p-5 sm:gap-5 gap-2.5 flex sm:flex-col sm:items-end items-center relative">
+      <div className="sm:p-4 p-5 sm:gap-5 gap-2.5 flex sm:flex-col-reverse sm:items-end items-center sm:justify-center justify-end relative">
+        {pathname !== Route.HOME && (
+          <motion.div
+            className="sm:mr-0 mr-auto"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            <ThemeToggleButton
+              className="sm:bg-secondary bg-background sm:rounded-none rounded-3xl"
+              variant="secondary"
+            />
+          </motion.div>
+        )}
+
+        <AnimatePresence mode="wait">
+          {isActive && (
+            <motion.div
+              className="z-40 sm:hidden block"
+              initial={{ x: 1000, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: 1000 }}
+              transition={{ duration: 0.3, ease: [0.75, 0, 0.25, 1] }}
+            >
+              <NavbarMenu />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         <motion.div
-          className="z-50 justify-self-start sm:hidden block"
+          className="z-50 sm:hidden block"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
         >
@@ -46,33 +73,6 @@ export const Navbar: React.FC<INavbar> = ({ className }) => {
         >
           <NavbarMenu />
         </motion.div>
-
-        <AnimatePresence mode="wait">
-          {isActive && (
-            <motion.div
-              className="z-40 sm:hidden block"
-              initial={{ x: -1000, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              exit={{ x: -1000 }}
-              transition={{ duration: 0.3, ease: [0.75, 0, 0.25, 1] }}
-            >
-              <NavbarMenu />
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {pathname !== Route.HOME && (
-          <motion.div
-            className="sm:ml-0 ml-auto"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            <ThemeToggleButton
-              className="sm:bg-secondary bg-background sm:rounded-none rounded-3xl"
-              variant="secondary"
-            />
-          </motion.div>
-        )}
       </div>
     </nav>
   )
