@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 import { cn } from '@/lib/utils'
+import { Code } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { TypeAnimation } from 'react-type-animation'
 
@@ -14,11 +15,12 @@ import { SHORT_STACK } from '@/constants'
 import { Route } from '@/config/routes.config'
 
 const REPOSITORY_URL = process.env.NEXT_PUBLIC_REPOSITORY_URL
+const DOWNLOAD_CV_URL = process.env.NEXT_PUBLIC_DOWNLOAD_CV_URL
 
 export const Hero: React.FC = () => {
   return (
     <Container className="max-h-screen flex flex-1 flex-col">
-      <div className="sm:p-14 p-4 flex flex-1 flex-col items-center justify-center relative">
+      <div className="sm:p-14 py-4 flex flex-1 flex-col items-center justify-center relative">
         <div className="flex flex-col items-center">
           <div className="mb-5 px-8 py-4 gap-5 flex items-center *:grayscale">
             {SHORT_STACK.map((item, index) => (
@@ -66,28 +68,30 @@ export const Hero: React.FC = () => {
               1000,
             ]}
             wrapper="p"
-            speed={35}
+            speed={45}
             repeat={Infinity}
           />
 
           <div className="my-10">
             <motion.div
-              className="gap-3 flex items-center"
+              className="gap-5 flex items-center"
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.3, delay: 0.4 }}
             >
               <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-                <Button className="border border-border" variant="secondary">
-                  Скачать резюме
-                </Button>
+                <Link href={DOWNLOAD_CV_URL as string} target="_blank">
+                  <Button className="border border-border" variant="secondary">
+                    Скачать резюме
+                  </Button>
+                </Link>
               </motion.div>
 
               <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
                 <Link href={Route.BLOG}>
-                  <Button className="border border-border relative" variant="secondary">
-                    Dev Blog
-                    <span className="w-2 h-2 -top-0.5 -right-0.5 bg-primary rounded-full absolute" />
+                  <Button className="border border-border" variant="outline">
+                    <Code size={14} />
+                    Dev-Blog
                   </Button>
                 </Link>
               </motion.div>
