@@ -19,6 +19,8 @@ interface IHeader {
 export const Header: React.FC<IHeader> = ({ className }) => {
   const [isActive, setIsActive] = React.useState(false)
 
+  const ITEMS = ROUTES.filter((item) => item.href !== Route.BLOG)
+
   React.useEffect(() => {
     if (isActive) {
       document.body.style.overflow = 'hidden'
@@ -32,7 +34,7 @@ export const Header: React.FC<IHeader> = ({ className }) => {
   return (
     <header
       className={cn(
-        'w-full xl:px-0 lg:px-4 sm:px-6 px-5 py-8 z-40 bg-background flex items-center justify-between md:relative fixed',
+        'w-full xl:px-0 lg:px-4 md:px-6 px-5 md:py-8 py-4 z-40 bg-background flex items-center justify-between md:relative fixed',
         className
       )}
     >
@@ -42,7 +44,7 @@ export const Header: React.FC<IHeader> = ({ className }) => {
 
       <nav className="gap-2.5 flex items-center">
         <div className="gap-2 md:flex items-center hidden">
-          {ROUTES.map((item, index) => (
+          {ITEMS.map((item, index) => (
             <Link key={index} href={item.href}>
               <Button variant="ghost" size="sm">
                 {item.name}
@@ -74,7 +76,7 @@ export const Header: React.FC<IHeader> = ({ className }) => {
             transition={{ duration: 0.3, ease: [0.75, 0, 0.25, 1] }}
           >
             <nav className="w-full mb-20 px-5 pb-10 gap-5 flex flex-col items-center">
-              {ROUTES.map((item, index) => (
+              {ITEMS.map((item, index) => (
                 <Link key={index} href={item.href}>
                   <Button className="font-raleway text-xl rounded-full" variant="ghost" size="lg">
                     {item.name}

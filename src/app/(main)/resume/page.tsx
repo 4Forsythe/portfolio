@@ -8,9 +8,9 @@ export const metadata: Metadata = {
 
 export default function ResumePage() {
   return (
-    <>
+    <div className="flex flex-col">
       <Resume />
       <FAQ />
-    </>
+    </div>
   )
 }
